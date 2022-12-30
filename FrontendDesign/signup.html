@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="bootstrap.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<style>
+    .content-container {
+        /* https://10015.io/tools/css-background-pattern-generator */
+        background: repeating-radial-gradient(circle, transparent, transparent 16.8px, rgba(11, 92, 214, 0.09) 16.8px, rgba(11, 92, 214, 0.09) 21.6px), repeating-radial-gradient(circle, transparent, transparent 16.8px, rgba(11, 92, 214, 0.09) 16.8px, rgba(11, 92, 214, 0.09) 21.6px), #ffffff;
+        background-size: 96px 96px;
+        background-position: 0 0, 48px 48px, 96px 48px;
+        background-color: #ffffff;
+    }
+</style>
+
+<body>
+    <div class="posts-page-container">
+
+        <div class="content-container"
+            style="width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center;">
+
+            <div class="card shadow" style="width: 400px;">
+                <div class="card-header">
+                    <h1>Your blog</h1>
+                </div>
+                <div class="card-body">
+
+                    <form style="display: flex; flex-direction: column;">
+
+                        <div class="form-group mt-1">
+                            <input type="text" class="form-control" id="username" placeholder="Username">
+                        </div>
+
+                        <div class="form-group mt-3">
+                            <input type="email" class="form-control" id="email" placeholder="Email">
+                        </div>
+
+                        <div class="form-group mt-3">
+                            <input type="password" class="form-control" id="password" placeholder="Password">
+                        </div>
+
+                        <div class="form-group mt-3">
+                            <input type="password" class="form-control" id="password" placeholder="Confirm password">
+                        </div>
+
+
+                        <button type="button" class="btn btn-primary mt-4">Sign Up</button>
+
+                        <div class="text-muted mt-5">
+                            Have an account?
+                            <a href="login.html">Login</a>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </div>
+    <script src="bootstrap.bundle.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User</title>
+    <link rel="stylesheet" href="bootstrap.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <div class="posts-page-container">
+
+        <nav class="navbar navbar-light bg-light navbar-expand-lg px-4" style="top: 0; position: sticky; z-index: 99;">
+            <a href="#" class="navbar-brand">Your blog</a>
+            <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav w-100">
+                    <li class="navbar-item">
+                        <a href="#" class="nav-link">Bookmarks</a>
+                    </li>
+                    <li class="navbar-item ms-auto">
+
+                        <div class="dropdown">
+                            <button class="btn btn-info text-light dropdown-toggle" type="button"
+                                id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                @username
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item px-5" href="#">My posts</a></li>
+                                <li><a class="dropdown-item px-5" href="#">Account settings</a></li>
+                                <li><a class="dropdown-item px-5" href="#">Sign out</a></li>
+                            </ul>
+                        </div>
+
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+
+
+
+        <div class="wrapper">
+
+            <div class="posts-container pt-4 p-4">
+
+
+
+                <div class="card mb-3 shadow-sm">
+
+                    <div class="p-5 m-0 row bg-light rounded-top about-user">
+                        <h3 class="w-auto" style="display: flex; align-items: center; gap: 45px;">
+                            <i class="fa-solid fa-user" style="font-size: 70px;"></i>
+                            <div>@john</div>
+                        </h3>
+                        <h6 class="w-auto column ms-auto user-info">
+                            <div class="fw-bold">Posts</div>
+                            <div style="text-align: center;">4</div>
+                        </h6>
+                        <h6 class="w-auto column user-info">
+                            <div class="fw-bold">Followers</div>
+                            <div style="text-align: center;">92</div>
+                        </h6>
+                        <h6 class="w-auto column user-info">
+                            <div class="fw-bold">Following</div>
+                            <div style="text-align: center;">112</div>
+                        </h6>
+
+                        <button class="ms-5 btn btn-info w-auto text-white follow-bt user-info"
+                            style="height: 40px;">Follow</button>
+
+
+                        <button class="mt-4 btn btn-info text-white follow-bt follow-bt-bottom px-auto">Follow</button>
+                        <div class="mt-4 bottom-info">
+                            <h6 class="w-auto column">
+                                <div class="fw-bold">Posts</div>
+                                <div style="text-align: center;">4</div>
+                            </h6>
+                            <h6 class="w-auto column">
+                                <div class="fw-bold">Followers</div>
+                                <div style="text-align: center;">92</div>
+                            </h6>
+                            <h6 class="w-auto column">
+                                <div class="fw-bold">Following</div>
+                                <div style="text-align: center;">112</div>
+                            </h6>
+                        </div>
+
+                    </div>
+
+                    <div class="p-3" style="display: flex; flex-direction: column;">
+                        <h5 class="card-title fw-bold">About</h5>
+                        <p class="card-text">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur distinctio
+                            vero voluptates voluptatibus nihil eveniet, sint, vel, optio dignissimos a repellendus atque
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+
+
+
+                <div class="card post mb-3 shadow-sm"> <!-- post -->
+
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Features of JavaScript</h5>
+                        <p class="card-text">
+                            The following article provides a detailed outline of the features of JavaScript.
+                        </p>
+                        <div class="row">
+                            <div class="text-muted w-auto">Dec 29</div>
+                            <span class="badge bg-primary w-auto">Programming</span>
+                            <i class="fa-solid fa-heart w-auto fs-4 text-secondary ms-auto px-0"></i>
+                            <div class="w-auto text-secondary">14</div>
+                        </div>
+
+                    </div>
+                </div> <!-- end of post -->
+
+                <div class="card post mb-3 shadow-sm"> <!-- post -->
+
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Lorem ipsum</h5>
+                        <p class="card-text">
+                            Dolorem, dicta deleniti delectus assumenda, animi eius nisi temporibus corrupti, repellendus
+                            neque atque nulla recusandae est exercitationem pariatur. Nemo explicabo quisquam delectus?
+                        </p>
+                        <div class="row">
+                            <div class="text-muted w-auto">Dec 28</div>
+                            <span class="badge bg-primary w-auto">Cooking</span>
+                            <i class="fa-solid fa-heart w-auto fs-4 text-secondary ms-auto px-0"></i>
+                            <div class="w-auto text-secondary">31</div>
+                        </div>
+                    </div>
+                </div> <!-- end of post -->
+
+                <div class="card post mb-3 shadow-sm"> <!-- post -->
+
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Lorem ipsum</h5>
+                        <p class="card-text">
+                            Dolorem, dicta deleniti delectus assumenda, animi eius nisi temporibus corrupti, repellendus
+                            neque atque nulla recusandae est exercitationem pariatur. Nemo explicabo quisquam delectus?
+                        </p>
+                        <div class="row">
+                            <div class="text-muted w-auto">Dec 28</div>
+                            <span class="badge bg-primary w-auto">Cooking</span>
+                            <i class="fa-solid fa-heart w-auto fs-4 text-secondary ms-auto px-0"></i>
+                            <div class="w-auto text-secondary">31</div>
+                        </div>
+                    </div>
+                </div> <!-- end of post -->
+
+                <div class="card post mb-3 shadow-sm"> <!-- post -->
+
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Lorem ipsum</h5>
+                        <p class="card-text">
+                            Dolorem, dicta deleniti delectus assumenda, animi eius nisi temporibus corrupti, repellendus
+                            neque atque nulla recusandae est exercitationem pariatur. Nemo explicabo quisquam delectus?
+                        </p>
+                        <div class="row">
+                            <div class="text-muted w-auto">Dec 28</div>
+                            <span class="badge bg-primary w-auto">Cooking</span>
+                            <i class="fa-solid fa-heart w-auto fs-4 text-secondary ms-auto px-0"></i>
+                            <div class="w-auto text-secondary">31</div>
+                        </div>
+                    </div>
+                </div> <!-- end of post -->
+
+
+
+
+
+                <button class="btn btn-primary floating-button-filter shadow btn-lg">
+                    <i class="fa-solid fa-filter"></i>
+                </button>
+            </div>
+
+
+            <div class="right-content pe-4 p-2 pt-4 fixed-top"
+                style="margin-top: 60px; margin-left: auto; width: 20vw; z-index: 0;">
+                <div class="card shadow-sm">
+                    <div class="card-header">
+                        Filter by topic
+                    </div>
+                    <div class="card-body">
+                        <input class="form-control" type="text" placeholder="Topic">
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div> <!-- end of wrapper -->
+
+
+    </div>
+    <script src="bootstrap.bundle.js"></script>
+</body>
+
+</html>

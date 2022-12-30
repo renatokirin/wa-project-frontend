@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New post</title>
+    <link rel="stylesheet" href="bootstrap.css">
+    <link rel="stylesheet" href="singlePage.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <div class="posts-page-container">
+
+        <nav class="navbar navbar-light bg-light navbar-expand-lg px-4" style="top: 0; position: sticky; z-index: 99;">
+            <a href="#" class="navbar-brand">Your blog</a>
+            <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav w-100">
+                    <li class="navbar-item">
+                        <a href="#" class="nav-link">Bookmarks</a>
+                    </li>
+                    <li class="navbar-item ms-auto">
+
+                        <div class="dropdown">
+                            <button class="btn btn-info text-light dropdown-toggle" type="button"
+                                id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                @username
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item px-5" href="#">My posts</a></li>
+                                <li><a class="dropdown-item px-5" href="#">Account settings</a></li>
+                                <li><a class="dropdown-item px-5" href="#">Sign out</a></li>
+                            </ul>
+                        </div>
+
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+
+
+
+
+        <div class="create-container">
+
+
+
+            <div class="content w-50 ms-auto me-auto mt-4 mb-4 shadow-sm">
+
+                <div class="card text-bg-light"
+                    style="border-bottom: none; border-bottom-right-radius: 0; border-bottom-left-radius: 0;">
+                    <div class="column p-2 px-3">
+
+                        <div class="row">
+                            <div class="" style="width: 300px;">
+                                <input class="form-control" type="text" placeholder="Topic">
+                            </div>
+
+                            <button class="btn btn-primary w-auto ms-auto me-3">Upload</button>
+                        </div>
+
+                        <div class="column mt-4">
+                            <input class="form-control" type="text" placeholder="Title">
+                            <textarea class="form-control mt-2" cols="80" rows="2" placeholder="Description"></textarea>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="card px-3 pb-5 pt-3"
+                    style="border-top: none; border-top-right-radius: 0; border-top-left-radius: 0;">
+                    <textarea class="form-control" cols="80" rows="30" placeholder="Go ahead, put anything."></textarea>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+    <script src="bootstrap.bundle.js"></script>
+</body>
+
+</html>
