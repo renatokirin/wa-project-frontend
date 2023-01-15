@@ -1,0 +1,105 @@
+.posts-container {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.post {
+    cursor: pointer;
+    transition: .3s transform cubic-bezier(.155, 1.105, .295, 1.12), .3s box-shadow, .3s -webkit-transform cubic-bezier(.155, 1.105, .295, 1.12);
+}
+
+.post:hover {
+    transform: scale(1.01);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06);
+}
+
+.floating-button {
+    width: 60px;
+    height: 60px;
+    display: none;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 35px 25px;
+}
+
+.floating-button-filter {
+    width: 60px;
+    height: 60px;
+    display: none;
+    position: fixed;
+    bottom: 70px;
+    right: 0;
+    margin: 35px 25px;
+}
+
+.mobile-option {
+    display: none;
+}
+
+.bottom-info {
+    display: none;
+}
+
+.follow-bt-bottom {
+    display: none;
+}
+
+@media (max-width: 1300px) {
+    .user-info {
+        display: none;
+    }
+
+    .follow-bt-bottom {
+        display: block;
+    }
+
+    .bottom-info {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .about-user {
+        padding-bottom: 0px !important;
+    }
+
+}
+
+@media (max-width: 1100px) {
+
+    .posts-container {
+        margin-left: 0;
+        margin-right: 0;
+        width: 100%;
+    }
+
+    .left-content,
+    .right-content {
+        display: none;
+    }
+
+    .floating-button,
+    .floating-button-filter {
+        display: block;
+    }
+
+    .desktop-option {
+        display: none;
+    }
+
+    .mobile-option {
+        display: block;
+    }
+}
+
+@media (max-width: 500px) {
+    .posts-container {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+
+    .card {
+        border-radius: 0px;
+    }
+}
