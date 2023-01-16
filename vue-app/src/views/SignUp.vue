@@ -4,6 +4,7 @@ export default {
         return {
             email: "",
             password: "",
+            confirmPassword: "",
             username: "",
             signUpFailed: false,
             signUpFailedText: "Sign Up Error"
@@ -11,6 +12,12 @@ export default {
     },
     methods: {
         async submitSignUp() {
+            if (!(this.password == this.confirmPassword)) {
+                this.signUpFailed = true;
+                this.signUpFailedText = "Passwords do not match";
+                return;
+            }
+            
             let json = { "username": username.value, "email": email.value, "password": password.value };
 
             await fetch('http://localhost:3000/api/users/auth/signUp', {
@@ -51,7 +58,8 @@ export default {
                             v-model="password">
                     </div>
                     <div class="form-group mt-3">
-                        <input type="password" class="form-control" id="password" placeholder="Confirm password">
+                        <input type="password" class="form-control" id="password" placeholder="Confirm password"
+                            v-model="confirmPassword">
                     </div>
                     <div class="alert alert-danger mt-4 py-1" role="alert" v-if="signUpFailed">
                         {{ signUpFailedText }}
