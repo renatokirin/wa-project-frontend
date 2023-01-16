@@ -1,21 +1,24 @@
 <script>
-    export default {
-        components: {
+import Navbar from '../components/Navbar.vue';
 
-        },
-        data() {
-            return {
-                text: "SinglePage"
-            }
-        },
-        methods: {
-            
+export default {
+    components: {
+        Navbar
+    },
+    data() {
+        return {
+            text: "SinglePage"
         }
-    };
+    },
+    methods: {
+
+    }
+};
 </script>
 
 <template>
     <div>
+        <Navbar></Navbar>
         {{ text }}
     </div>
 </template> 
