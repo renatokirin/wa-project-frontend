@@ -3,14 +3,14 @@ import '../assets/bootstrap.bundle';
 </script>
 <template>
     <nav class="navbar navbar-light bg-light navbar-expand-lg px-4" style="top: 0; position: sticky; z-index: 99;">
-        <a href="#" class="navbar-brand">Your blog</a>
+        <a href="/" class="navbar-brand">Your blog</a>
         <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav w-100">
                 <li class="navbar-item">
-                    <a href="#" class="nav-link">Bookmarks</a>
+                    <a href="/bookmarks" class="nav-link">Bookmarks</a>
                 </li>
                 <li class="navbar-item ms-auto">
 
