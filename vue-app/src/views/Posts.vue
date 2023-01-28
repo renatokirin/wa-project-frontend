@@ -5,6 +5,7 @@ import BookmarkButton from '../components/BookmarkButton.vue';
 import LikeButton from '../components/LikeButton.vue';
 import Pagination from '../components/Pagination.vue';
 import { store } from '../store.js';
+import { formatDate } from '../utils/formatDate.js';
 
 export default {
     components: {
@@ -12,14 +13,15 @@ export default {
         SearchTopics,
         BookmarkButton,
         LikeButton,
-        Pagination
+        Pagination,
     },
     data() {
         return {
             posts: [],
             currentPage: 1,
             totalPages: 10,
-            topicName: ""
+            topicName: "",
+            formatDate
         }
     },
     methods: {
@@ -54,11 +56,6 @@ export default {
             store.setSelectedUserId(id);
             this.$router.push('/user');
         },
-
-        formatDate(value) {
-            let d = new Date(value);
-            if (value) return d.toLocaleDateString("en-US", { month: 'short', day: 'numeric' });
-        },
     },
 
     beforeMount() {
@@ -83,7 +80,7 @@ export default {
             <div class="posts-container pt-4 p-4">
                 <div class="card post mb-3 shadow-sm" v-for="post in posts">
                     <div class="card-header" style="display: flex;">
-                        <button type="button" class="btn btn-outline-dark p-0 px-1" @click="toUserPage(post.userId)"
+                        <button type="button" class="btn btn-outline-dark p-0 px-1" @click="toUserPage(post.author.id)"
                             style="border: none; font-weight: bold;">
                             {{ post.author.username }}
                         </button>

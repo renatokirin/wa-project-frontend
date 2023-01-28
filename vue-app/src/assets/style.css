@@ -46,6 +46,12 @@
     display: none;
 }
 
+.btn-info:focus,
+.btn-info:active {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
 @media (max-width: 1300px) {
     .user-info {
         display: none;
