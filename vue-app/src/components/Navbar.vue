@@ -33,7 +33,7 @@ import '../assets/bootstrap.bundle';
     </nav>
 </template>
 
-<style>
+<style scoped>
 .btn-info:focus,
 .btn-info:active {
     outline: none !important;
