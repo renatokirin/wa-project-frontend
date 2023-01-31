@@ -20,7 +20,6 @@ export default {
     },
     methods: {
         async getPost() {
-            console.log("get post activated")
             await fetch(`http://localhost:3000/api/posts/${this.id}`, {
                 method: 'GET', credentials: 'include',
                 headers: {

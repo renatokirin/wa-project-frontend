@@ -3,7 +3,8 @@ import { reactive } from 'vue';
 
 export const store = reactive({
     selectedPostId: JSON.parse(localStorage.getItem('selectedPostId') || "{}"),
-    selectedUserId: JSON.parse(localStorage.getItem('selectedUserId') || "{}"), 
+    selectedUserId: JSON.parse(localStorage.getItem('selectedUserId') || "{}"),
+    postToEditId: JSON.parse(localStorage.getItem('postToEditId') || "{}"),
 
     setSelectedPostId(id) {
         this.selectedPostId = id;
@@ -13,5 +14,10 @@ export const store = reactive({
     setSelectedUserId(id) {
         this.selectedUserId = id;
         localStorage.setItem("selectedUserId",JSON.stringify(this.selectedUserId));
+    },
+
+    setPostToEditId(id) {
+        this.postToEditId = id;
+        localStorage.setItem("postToEditId",JSON.stringify(this.postToEditId));
     }
 });

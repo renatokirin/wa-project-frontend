@@ -1,5 +1,18 @@
 <script>
 import '../assets/bootstrap.bundle';
+
+export default {
+    methods: {
+        async signOut() {
+            await fetch(`http://localhost:3000/api/users/auth/signOut`, {
+                method: 'GET', credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                },
+            });
+        }
+    }
+}
 </script>
 <template>
     <nav class="navbar navbar-light bg-light navbar-expand-lg px-4" style="top: 0; position: sticky; z-index: 99;">
@@ -20,9 +33,8 @@ import '../assets/bootstrap.bundle';
                             @username
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item px-5" href="#">My posts</a></li>
-                            <li><a class="dropdown-item px-5" href="#">Account settings</a></li>
-                            <li><a class="dropdown-item px-5" href="#">Sign out</a></li>
+                            <li><a class="dropdown-item px-5" href="/my">My posts</a></li>
+                            <li><a class="dropdown-item px-5" @click="signOut()">Sign out</a></li>
                         </ul>
                     </div>
 
