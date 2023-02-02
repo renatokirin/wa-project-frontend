@@ -1,6 +1,7 @@
 <script>
 import Navbar from '../components/Navbar.vue';
 import Pagination from '../components/Pagination.vue';
+import SearchTopics from '../components/SearchTopics.vue';
 import { store } from '../store.js';
 import { formatDate, monthYear } from '../utils/formatDate';
 import FollowerList from '../components/FollowerList.vue';
@@ -8,6 +9,7 @@ import FollowerList from '../components/FollowerList.vue';
 export default {
     components: {
         Navbar,
+        SearchTopics,
         FollowerList,
         Pagination
     },
@@ -29,7 +31,8 @@ export default {
             followingArray: [],
             followDataExists: false,
             selectorOpened: false,
-            file: Object
+            file: Object,
+            aboutInput: ""
         }
     },
     methods: {
@@ -115,7 +118,30 @@ export default {
             }).then(() => {
                 window.location.reload();
             });
-        }
+        },
+
+        async editAbout() {
+            let json = { "about": this.aboutInput };
+            await fetch(`http://localhost:3000/api/users/edit`, {
+                method: 'PATCH', credentials: 'include',
+                body: JSON.stringify(json),
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                },
+            }).then(() => {
+                window.location.reload();
+            });
+        },
+
+        searchByTopic(string) {
+            this.topicName = string;
+            this.getPosts();
+        },
+
+        toPostPage(id) {
+            store.setSelectedPostId(id);
+            this.$router.push('/post');
+        },
 
     },
     beforeMount() {
@@ -129,6 +155,14 @@ export default {
         <Navbar></Navbar>
 
         <div class="wrapper">
+            <div class="left-content p-2 pt-4 fixed-top"
+                style="margin-top: 60px; width: 18vw; margin-left: 20px; z-index: 0;">
+                <a href="/createpost">
+                    <button class="btn btn-outline-primary w-100" style="font-weight: bold;">
+                        <i class="fa-solid fa-pen"></i> New Post
+                    </button>
+                </a>
+            </div>
             <div class="posts-container pt-4 p-4">
                 <div class="card mb-3 shadow-sm">
                     <div class="p-5 m-0 row bg-light rounded-top about-user" style="display: flex; gap: 10px;">
@@ -172,7 +206,8 @@ export default {
 
                     <div class="m-2 mt-3" style="display: flex; align-items: center;" v-if="selectorOpened">
                         <input style="font-size: 14px;" type="file" ref="file" accept="image/*" @change="" />
-                        <button class="btn btn-info py-0 mt-2" style="font-size: 14px; color: white;" @click="changeProfilepicture()">Change</button>
+                        <button class="btn btn-info py-0 mt-2" style="font-size: 14px; color: white;"
+                            @click="changeProfilepicture()">Change</button>
                     </div>
 
                     <div class="p-3" style="display: flex; flex-direction: column;">
@@ -183,13 +218,46 @@ export default {
                         <p class="card-text">
                             {{ user.about }}
                         </p>
+                        <button class="btn btn-info btn-sm text-white w-auto ms-auto" data-bs-toggle="modal"
+                            data-bs-target="#aboutModal">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="aboutModal" tabindex="-1" aria-labelledby="aboutModal"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Edit about</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control"
+                                                placeholder="Tell us something about yourself" v-model="aboutInput">
+                                            <button class="btn btn-outline-secondary" type="button"
+                                                id="button-addon2" @click="editAbout()">Save</button>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
 
                 <div class="card post mb-3 shadow-sm" v-for="post in posts">
                     <div class="card-body">
-                        <h5 class="card-title fw-bold">{{ post.title }}</h5>
+                        <h5 class="card-title fw-bold" @click="toPostPage(post._id)">{{ post.title }}</h5>
                         <p class="card-text">
                             {{ post.description }}
                         </p>
@@ -218,13 +286,40 @@ export default {
                         </div>
                     </div>
                 </div>
+                
+                <div v-if="posts.length == 0" style="display: flex; align-items: center; gap: 15px;">
+                    <h3>No posts available</h3>
+                    <a href="/createpost">Create one</a>
+                </div>
+                <Pagination v-if="posts.length != 0" :total-pages="totalPages" :per-page="10"
+                    :current-page="currentPage" @pagechanged="onPageChange"></Pagination>
 
-                <Pagination :total-pages="totalPages" :per-page="10" :current-page="currentPage"
-                    @pagechanged="onPageChange"></Pagination>
-
-                <button class="btn btn-primary floating-button-filter shadow btn-lg">
+                <a class="btn btn-primary floating-button shadow btn-lg" href="/createpost">
+                    <i class="fa-solid fa-plus mt-2"></i>
+                </a>
+                <button class="btn btn-primary floating-button-filter shadow btn-lg" data-bs-toggle="modal"
+                    data-bs-target="#filterModal">
                     <i class="fa-solid fa-filter"></i>
                 </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModal" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Filter by topic</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <SearchTopics :assign-mode-prop="false" @getValue="searchByTopic"></SearchTopics>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="right-content pe-4 p-2 pt-4 fixed-top"
@@ -234,7 +329,7 @@ export default {
                         Filter by topic
                     </div>
                     <div class="card-body">
-                        <input type="text" class="form-control">
+                        <SearchTopics :assign-mode-prop="false" @getValue="searchByTopic"></SearchTopics>
                     </div>
                 </div>
             </div>

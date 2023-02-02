@@ -56,7 +56,7 @@ export default {
                     <div class="card-header" style="display: flex;">
                         <button type="button" class="btn btn-outline-dark p-0 px-1" @click="toUserPage(post.author.id)"
                             style="border: none; font-weight: bold;">
-                            {{ post.author.username }}
+                            @{{ post.author.username }}
                         </button>
                         <BookmarkButton v-if="post.userData" :id-prop="post._id"
                             :bookmarked-prop="post.userData.bookmarked" style="margin-left: auto; margin-right: 25px;">
@@ -67,8 +67,8 @@ export default {
                             class="fa-regular fa-heart w-auto fs-4 text-secondary ms-auto me-2 px-0"></i>
                         <div v-if="!post.userData" class="w-auto text-secondary">{{ post.likes }}</div>
                     </div>
-                    <div class="card-body" @click="toPostPage(post._id)">
-                        <h5 class="card-title fw-bold">{{ post.title }}</h5>
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold" @click="toPostPage(post._id)">{{ post.title }}</h5>
                         <p class="card-text">
                             {{ post.description }}
                         </p>

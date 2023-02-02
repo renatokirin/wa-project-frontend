@@ -83,3 +83,7 @@ export default {
 
     </div>
 </template> 
+
+<style scoped>
+@import '../assets/singlePage.css';
+</style>

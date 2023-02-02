@@ -28,7 +28,7 @@ export default {
                         user.profilePicture = null;
                     }
                 });
-            }, 100);
+            }, 20);
             if (this.dropdown == "") this.dropdown = "show"
             else this.dropdown = "";
         },

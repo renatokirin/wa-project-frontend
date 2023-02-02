@@ -4,11 +4,14 @@ import Pagination from '../components/Pagination.vue';
 import { store } from '../store.js';
 import { formatDate, monthYear } from '../utils/formatDate';
 import FollowerList from '../components/FollowerList.vue';
+import SearchTopics from '../components/SearchTopics.vue';
 
 export default {
     components: {
         Navbar,
-        FollowerList
+        FollowerList,
+        Pagination,
+        SearchTopics
     },
     data() {
         return {
@@ -84,7 +87,7 @@ export default {
                     headers: {
                         'Content-Type': 'application/json; charset=utf-8',
                     },
-                });
+                }).then(() => window.location.reload());
             } else {
                 this.user.isFollowed = false;
                 await fetch(`http://localhost:3000/api/users/follows/${this.id}`, {
@@ -92,8 +95,18 @@ export default {
                     headers: {
                         'Content-Type': 'application/json; charset=utf-8',
                     },
-                });
+                }).then(() => window.location.reload());
             }
+        },
+
+        searchByTopic(string) {
+            this.topicName = string;
+            this.getPosts();
+        },
+
+        toPostPage(id) {
+            store.setSelectedPostId(id);
+            this.$router.push('/post');
         },
 
     },
@@ -174,7 +187,7 @@ export default {
 
                 <div class="card post mb-3 shadow-sm" v-for="post in posts">
                     <div class="card-body">
-                        <h5 class="card-title fw-bold">{{ post.title }}</h5>
+                        <h5 class="card-title fw-bold" @click="toPostPage(post._id)">{{ post.title }}</h5>
                         <p class="card-text">
                             {{ post.description }}
                         </p>
@@ -185,12 +198,32 @@ export default {
                     </div>
                 </div>
 
-                <Pagination :total-pages="totalPages" :per-page="10" :current-page="currentPage"
+                <Pagination v-if="posts.length != 0" :total-pages="totalPages" :per-page="10" :current-page="currentPage"
                     @pagechanged="onPageChange"></Pagination>
 
-                <button class="btn btn-primary floating-button-filter shadow btn-lg">
+                <button class="btn btn-primary floating-button-filter shadow btn-lg" data-bs-toggle="modal"
+                    data-bs-target="#filterModal">
                     <i class="fa-solid fa-filter"></i>
                 </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModal" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Filter by topic</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <SearchTopics :assign-mode-prop="false" @getValue="searchByTopic"></SearchTopics>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="right-content pe-4 p-2 pt-4 fixed-top"
@@ -200,7 +233,7 @@ export default {
                         Filter by topic
                     </div>
                     <div class="card-body">
-                        <input type="text" class="form-control">
+                        <SearchTopics :assign-mode-prop="false" @getValue="searchByTopic"></SearchTopics>
                     </div>
                 </div>
             </div>

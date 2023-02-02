@@ -21,7 +21,8 @@ export default {
             currentPage: 1,
             totalPages: 10,
             topicName: "",
-            formatDate
+            formatDate,
+            username: this.$cookies.get("username")
         }
     },
     methods: {
@@ -71,7 +72,7 @@ export default {
         <div class="wrapper">
             <div class="left-content p-2 pt-4 fixed-top"
                 style="margin-top: 60px; width: 18vw; margin-left: 20px; z-index: 0;">
-                <a href="/createpost">
+                <a href="/createpost" v-if="username">
                     <button class="btn btn-outline-primary w-100" style="font-weight: bold;">
                         <i class="fa-solid fa-pen"></i> New Post
                     </button>
@@ -82,7 +83,7 @@ export default {
                     <div class="card-header" style="display: flex;">
                         <button type="button" class="btn btn-outline-dark p-0 px-1" @click="toUserPage(post.author.id)"
                             style="border: none; font-weight: bold;">
-                            {{ post.author.username }}
+                            @{{ post.author.username }}
                         </button>
                         <BookmarkButton v-if="post.userData" :id-prop="post._id"
                             :bookmarked-prop="post.userData.bookmarked" style="margin-left: auto; margin-right: 25px;">
@@ -93,8 +94,8 @@ export default {
                             class="fa-regular fa-heart w-auto fs-4 text-secondary ms-auto me-2 px-0"></i>
                         <div v-if="!post.userData" class="w-auto text-secondary">{{ post.likes }}</div>
                     </div>
-                    <div class="card-body" @click="toPostPage(post._id)">
-                        <h5 class="card-title fw-bold">{{ post.title }}</h5>
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold" @click="toPostPage(post._id)">{{ post.title }}</h5>
                         <p class="card-text">
                             {{ post.description }}
                         </p>
@@ -104,12 +105,34 @@ export default {
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-primary floating-button-filter shadow btn-lg">
+                <button class="btn btn-primary floating-button-filter shadow btn-lg" data-bs-toggle="modal"
+                    data-bs-target="#filterModal">
                     <i class="fa-solid fa-filter"></i>
                 </button>
-                <button class="btn btn-primary floating-button shadow btn-lg">
-                    <i class="fa-solid fa-plus"></i>
-                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModal" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Filter by topic</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <SearchTopics :assign-mode-prop="false" @getValue="searchByTopic"></SearchTopics>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <a class="btn btn-primary floating-button shadow btn-lg" href="/createpost" v-if="username">
+                    <i class="fa-solid fa-plus mt-2"></i>
+                </a>
                 <Pagination :total-pages="totalPages" :per-page="10" :current-page="currentPage"
                     @pagechanged="onPageChange"></Pagination>
             </div>

@@ -2,6 +2,12 @@
 import '../assets/bootstrap.bundle';
 
 export default {
+    data() {
+        return {
+            margin: 'ms-auto',
+            username: this.$cookies.get("username")
+        }
+    },
     methods: {
         async signOut() {
             await fetch(`http://localhost:3000/api/users/auth/signOut`, {
@@ -9,7 +15,12 @@ export default {
                 headers: {
                     'Content-Type': 'application/json; charset=utf-8',
                 },
-            });
+            }).then(() => window.location.reload());
+        },
+
+        removeMargin() {
+            if (this.margin != 'ms-auto') this.margin = "ms-auto";
+            else this.margin = '';
         }
     }
 }
@@ -17,28 +28,36 @@ export default {
 <template>
     <nav class="navbar navbar-light bg-light navbar-expand-lg px-4" style="top: 0; position: sticky; z-index: 99;">
         <a href="/" class="navbar-brand">Your blog</a>
-        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+            @click="removeMargin()">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav w-100">
-                <li class="navbar-item">
+                <li class="navbar-item"  v-if="username">
                     <a href="/bookmarks" class="nav-link">Bookmarks</a>
                 </li>
-                <li class="navbar-item ms-auto">
+                <div class="navbar-item" :class="margin" v-if="username">
 
                     <div class="dropdown">
                         <button class="btn btn-info text-light dropdown-toggle" type="button" id="dropdownMenuButton1"
                             data-bs-toggle="dropdown" aria-expanded="false">
-                            @username
+                            @{{ username }}
                         </button>
+
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
                             <li><a class="dropdown-item px-5" href="/my">My posts</a></li>
                             <li><a class="dropdown-item px-5" @click="signOut()">Sign out</a></li>
                         </ul>
                     </div>
 
-                </li>
+                </div>
+
+                <div class="navbar-item" :class="margin" v-if="!username">
+                    <a class="btn btn-info text-light" type="button" href="/signin">
+                        Sign In
+                    </a>
+                </div>
 
             </ul>
         </div>
