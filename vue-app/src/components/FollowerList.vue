@@ -16,26 +16,13 @@ export default {
     },
     methods: {
         showList() {
-            setTimeout(() => {
-                this.users.forEach((user) => {
-                    let imgData = user.profilePicture;
-                    try {
-                        let img = btoa(
-                            String.fromCharCode(...new Uint8Array(imgData.image.data.data))
-                        );
-                        user.profilePicture = `data:image/png;base64,${img}`;
-                    } catch (e) {
-                        user.profilePicture = null;
-                    }
-                });
-            }, 20);
             if (this.dropdown == "") this.dropdown = "show"
             else this.dropdown = "";
         },
         toUserPage(id) {
             store.setSelectedUserId(id);
             window.location.reload();
-        }
+        },
     }
 };
 

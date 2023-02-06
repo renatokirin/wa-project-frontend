@@ -2,6 +2,7 @@
 import Navbar from '../components/Navbar.vue';
 import SearchTopics from '../components/SearchTopics.vue';
 import { store } from '../store.js';
+import config from '../config.js';
 
 export default {
     components: {
@@ -25,7 +26,7 @@ export default {
         async uploadPost() {
             let json = { "title": this.title, "description": this.description, "markdown": this.markdown, "topicName": this.topicName };
 
-            await fetch(`http://localhost:3000/api/posts`, {
+            await fetch(config.baseUrl + `/api/posts`, {
                 method: 'POST', credentials: 'include',
                 body: JSON.stringify(json),
                 headers: {

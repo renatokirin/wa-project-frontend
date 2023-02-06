@@ -1,4 +1,5 @@
 <script>
+import config from '../config.js';
 export default {
     props: {
         idProp: String,
@@ -16,7 +17,7 @@ export default {
     },
     methods: {
         async addLike() {
-            await fetch(`http://localhost:3000/api/posts/${this.id}/likes`, {
+            await fetch(config.baseUrl + `/api/posts/${this.id}/likes`, {
                 method: 'POST', credentials: 'include',
                 headers: {
                     Accept: "application/json",
@@ -26,7 +27,7 @@ export default {
         },
 
         async removeLike() {
-            fetch(`http://localhost:3000/api/posts/${this.id}/likes`, {
+            fetch(config.baseUrl + `/api/posts/${this.id}/likes`, {
                 method: 'DELETE', credentials: 'include',
                 headers: {
                     Accept: "application/json",

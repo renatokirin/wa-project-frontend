@@ -1,4 +1,5 @@
 <script>
+import config from '../config.js';
 export default {
     props: {
         assignModeProp: Boolean
@@ -21,7 +22,7 @@ export default {
     },
     methods: {
         async getTopics(input) {
-            await fetch(`http://localhost:3000/api/topics?name=${input}`).then(res => res.json()).then(data => {
+            await fetch(config.baseUrl + `/api/topics?name=${input}`).then(res => res.json()).then(data => {
                 this.topics = data;
             });
         },

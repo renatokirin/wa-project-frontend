@@ -4,6 +4,7 @@ import { formatDate } from '../utils/formatDate';
 import LikeButton from '../components/LikeButton.vue';
 import BookmarkButton from '../components/BookmarkButton.vue';
 import { store } from '../store.js';
+import config from '../config.js';
 
 export default {
     components: {
@@ -14,17 +15,20 @@ export default {
     data() {
         return {
             posts: [],
-            formatDate
+            formatDate,
+            isLoading: false
         }
     },
     methods: {
         async getBookmarks() {
-            await fetch(`http://localhost:3000/api/users/bookmarks`, {
+            this.isLoading = true;
+            await fetch(config.baseUrl + `/api/users/bookmarks`, {
                 method: 'GET', credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json; charset=utf-8',
                 },
             }).then(res => res.json()).then(data => {
+                this.isLoading = false;
                 this.posts = data;
             });
         },
@@ -52,6 +56,14 @@ export default {
         <div class="wrapper">
             <div class="posts-container pt-4 p-4">
                 <h3 class="mb-4">Your bookmarks</h3>
+
+                <div class="lds-ring" style="margin-left: 45%; margin-right: 55%;" v-if="isLoading">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+
                 <div class="card post mb-3 shadow-sm" v-for="post in posts">
                     <div class="card-header" style="display: flex;">
                         <button type="button" class="btn btn-outline-dark p-0 px-1" @click="toUserPage(post.author.id)"
@@ -78,6 +90,15 @@ export default {
                         </div>
                     </div>
                 </div>
+
+                <div v-if="(posts.length == 0) && isLoading == false"
+                    style="display: flex; align-items: center; gap: 15px;">
+                    <h4 class="text-secondary">
+                        No bookmarked posts available, bookmark a post by clicking a <i
+                            class="fa-regular fa-bookmark fs-4 text-dark"></i> bookmark button.
+                    </h4>
+                </div>
+
             </div>
         </div>
 

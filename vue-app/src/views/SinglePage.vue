@@ -4,6 +4,7 @@ import { store } from '../store.js';
 import LikeButton from '../components/LikeButton.vue';
 import BookmarkButton from '../components/BookmarkButton.vue';
 import { formatDate } from '../utils/formatDate.js';
+import config from '../config.js';
 
 export default {
     components: {
@@ -20,7 +21,7 @@ export default {
     },
     methods: {
         async getPost() {
-            await fetch(`http://localhost:3000/api/posts/${this.id}`, {
+            await fetch(config.baseUrl + `/api/posts/${this.id}`, {
                 method: 'GET', credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json; charset=utf-8',

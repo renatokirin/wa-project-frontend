@@ -1,4 +1,5 @@
 <script>
+import config from '../config.js';
 export default {
     data() {
         return {
@@ -19,7 +20,7 @@ export default {
             }
             
             let json = { "username": username.value, "email": email.value, "password": password.value };
-            await fetch('http://localhost:3000/api/users/auth/signUp', {
+            await fetch(config.baseUrl + '/api/users/auth/signUp', {
                 method: 'POST', credentials: 'include',
                 body: JSON.stringify(json),
                 headers: {

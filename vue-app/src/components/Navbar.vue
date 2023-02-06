@@ -1,6 +1,6 @@
 <script>
 import '../assets/bootstrap.bundle';
-
+import config from '../config.js';
 export default {
     data() {
         return {
@@ -10,7 +10,7 @@ export default {
     },
     methods: {
         async signOut() {
-            await fetch(`http://localhost:3000/api/users/auth/signOut`, {
+            await fetch(config.baseUrl + `/api/users/auth/signOut`, {
                 method: 'GET', credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json; charset=utf-8',

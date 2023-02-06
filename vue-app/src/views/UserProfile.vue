@@ -5,6 +5,7 @@ import { store } from '../store.js';
 import { formatDate, monthYear } from '../utils/formatDate';
 import FollowerList from '../components/FollowerList.vue';
 import SearchTopics from '../components/SearchTopics.vue';
+import config from '../config.js';
 
 export default {
     components: {
@@ -30,16 +31,19 @@ export default {
             followersArray: [],
             followingArray: [],
             followDataExists: false,
+            isLoading: false
         }
     },
     methods: {
         async getPosts() {
-            await fetch(`http://localhost:3000/api/users/${this.id}?page=${this.currentPage}&limit=${10}&topic=${this.topicName}`, {
+            this.isLoading = true;
+            await fetch(config.baseUrl + `/api/users/${this.id}?page=${this.currentPage}&limit=${10}&topic=${this.topicName}`, {
                 method: 'GET', credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json; charset=utf-8',
                 },
             }).then(res => res.json()).then(data => {
+                this.isLoading = false;
                 this.posts = data.posts;
                 this.user = data.userInfo;
                 if (this.user.isFollowed != null) this.followDataExists = true;
@@ -58,31 +62,55 @@ export default {
         },
 
         async getFollowers() {
-            await fetch(`http://localhost:3000/api/users/${this.id}/followers`, {
+            await fetch(config.baseUrl + `/api/users/${this.id}/followers`, {
                 method: 'GET', credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json; charset=utf-8',
                 },
             }).then(res => res.json()).then(data => {
                 this.followersArray = data;
+
+                this.followersArray.forEach((user) => {
+                    let imgData = user.profilePicture;
+                    try {
+                        let img = btoa(
+                            String.fromCharCode(...new Uint8Array(imgData.image.data.data))
+                        );
+                        user.profilePicture = `data:image/png;base64,${img}`;
+                    } catch (e) {
+                        user.profilePicture = null;
+                    }
+                });
             });
         },
 
         async getFollows() {
-            await fetch(`http://localhost:3000/api/users/${this.id}/follows`, {
+            await fetch(config.baseUrl + `/api/users/${this.id}/follows`, {
                 method: 'GET', credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json; charset=utf-8',
                 },
             }).then(res => res.json()).then(data => {
                 this.followingArray = data;
+
+                this.followingArray.forEach((user) => {
+                    let imgData = user.profilePicture;
+                    try {
+                        let img = btoa(
+                            String.fromCharCode(...new Uint8Array(imgData.image.data.data))
+                        );
+                        user.profilePicture = `data:image/png;base64,${img}`;
+                    } catch (e) {
+                        user.profilePicture = null;
+                    }
+                });
             });
         },
 
         async followUser() {
             if (!this.user.isFollowed) {
                 this.user.isFollowed = true;
-                await fetch(`http://localhost:3000/api/users/follows/${this.id}`, {
+                await fetch(config.baseUrl + `/api/users/follows/${this.id}`, {
                     method: 'POST', credentials: 'include',
                     headers: {
                         'Content-Type': 'application/json; charset=utf-8',
@@ -90,7 +118,7 @@ export default {
                 }).then(() => window.location.reload());
             } else {
                 this.user.isFollowed = false;
-                await fetch(`http://localhost:3000/api/users/follows/${this.id}`, {
+                await fetch(config.baseUrl + `/api/users/follows/${this.id}`, {
                     method: 'DELETE', credentials: 'include',
                     headers: {
                         'Content-Type': 'application/json; charset=utf-8',
@@ -184,6 +212,12 @@ export default {
                     </div>
                 </div>
 
+                <div class="lds-ring" style="margin-left: 45%; margin-right: 55%;" v-if="isLoading">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
 
                 <div class="card post mb-3 shadow-sm" v-for="post in posts">
                     <div class="card-body">
@@ -198,8 +232,12 @@ export default {
                     </div>
                 </div>
 
-                <Pagination v-if="posts.length != 0" :total-pages="totalPages" :per-page="10" :current-page="currentPage"
-                    @pagechanged="onPageChange"></Pagination>
+                <div v-if="(posts.length == 0) && isLoading == false" style="display: flex; align-items: center; gap: 15px;">
+                    <h4>This person hasn't posted anything yet.</h4>
+                </div>
+
+                <Pagination v-if="posts.length != 0" :total-pages="totalPages" :per-page="10"
+                    :current-page="currentPage" @pagechanged="onPageChange"></Pagination>
 
                 <button class="btn btn-primary floating-button-filter shadow btn-lg" data-bs-toggle="modal"
                     data-bs-target="#filterModal">

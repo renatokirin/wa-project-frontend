@@ -1,4 +1,5 @@
 <script>
+import config from '../config.js';
 export default {
     props: {
         idProp: String,
@@ -14,7 +15,7 @@ export default {
     },
     methods: {
         async addBookmark() {
-            await fetch(`http://localhost:3000/api/users/bookmarks/${this.id.valueOf()}`, {
+            await fetch(config.baseUrl + `/api/users/bookmarks/${this.id.valueOf()}`, {
                 method: 'POST', credentials: 'include',
                 headers: {
                     Accept: "application/json",
@@ -24,7 +25,7 @@ export default {
         },
 
         async deleteBookmark() {
-            await fetch(`http://localhost:3000/api/users/bookmarks/${this.id.valueOf()}`, {
+            await fetch(config.baseUrl + `/api/users/bookmarks/${this.id.valueOf()}`, {
                 method: 'DELETE', credentials: 'include',
                 headers: {
                     Accept: "application/json",

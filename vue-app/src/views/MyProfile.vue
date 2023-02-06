@@ -5,6 +5,7 @@ import SearchTopics from '../components/SearchTopics.vue';
 import { store } from '../store.js';
 import { formatDate, monthYear } from '../utils/formatDate';
 import FollowerList from '../components/FollowerList.vue';
+import config from '../config.js';
 
 export default {
     components: {
@@ -32,17 +33,20 @@ export default {
             followDataExists: false,
             selectorOpened: false,
             file: Object,
-            aboutInput: ""
+            aboutInput: "",
+            isLoading: false
         }
     },
     methods: {
         async getPosts() {
-            await fetch(`http://localhost:3000/api/users/${this.id}?page=${this.currentPage}&limit=${10}&topic=${this.topicName}`, {
+            this.isLoading = true;
+            await fetch(config.baseUrl + `/api/users/${this.id}?page=${this.currentPage}&limit=${10}&topic=${this.topicName}`, {
                 method: 'GET', credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json; charset=utf-8',
                 },
             }).then(res => res.json()).then(data => {
+                this.isLoading = false;
                 this.posts = data.posts;
                 this.user = data.userInfo;
                 if (this.user.isFollowed != null) this.followDataExists = true;
@@ -61,30 +65,54 @@ export default {
         },
 
         async getFollowers() {
-            await fetch(`http://localhost:3000/api/users/${this.id}/followers`, {
+            await fetch(config.baseUrl + `/api/users/${this.id}/followers`, {
                 method: 'GET', credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json; charset=utf-8',
                 },
             }).then(res => res.json()).then(data => {
                 this.followersArray = data;
+
+                this.followersArray.forEach((user) => {
+                    let imgData = user.profilePicture;
+                    try {
+                        let img = btoa(
+                            String.fromCharCode(...new Uint8Array(imgData.image.data.data))
+                        );
+                        user.profilePicture = `data:image/png;base64,${img}`;
+                    } catch (e) {
+                        user.profilePicture = null;
+                    }
+                });
             });
         },
 
         async getFollows() {
-            await fetch(`http://localhost:3000/api/users/${this.id}/follows`, {
+            await fetch(config.baseUrl + `/api/users/${this.id}/follows`, {
                 method: 'GET', credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json; charset=utf-8',
                 },
             }).then(res => res.json()).then(data => {
                 this.followingArray = data;
+
+                this.followingArray.forEach((user) => {
+                    let imgData = user.profilePicture;
+                    try {
+                        let img = btoa(
+                            String.fromCharCode(...new Uint8Array(imgData.image.data.data))
+                        );
+                        user.profilePicture = `data:image/png;base64,${img}`;
+                    } catch (e) {
+                        user.profilePicture = null;
+                    }
+                });
             });
         },
 
         async deletePost(selectedId, title) {
             if (window.confirm(`Delete the post ' ${title} '`)) {
-                await fetch(`http://localhost:3000/api/posts/${selectedId}`, {
+                await fetch(config.baseUrl + `/api/posts/${selectedId}`, {
                     method: 'DELETE', credentials: 'include',
                     headers: {
                         'Content-Type': 'application/json; charset=utf-8',
@@ -112,7 +140,7 @@ export default {
             let myFile = fileField.files[0];
             imageData.append("profilepicture", myFile);
 
-            await fetch(`http://localhost:3000/api/users/editProfilePicture`, {
+            await fetch(config.baseUrl + `/api/users/editProfilePicture`, {
                 method: 'PATCH', credentials: 'include',
                 body: imageData
             }).then(() => {
@@ -122,7 +150,7 @@ export default {
 
         async editAbout() {
             let json = { "about": this.aboutInput };
-            await fetch(`http://localhost:3000/api/users/edit`, {
+            await fetch(config.baseUrl + `/api/users/edit`, {
                 method: 'PATCH', credentials: 'include',
                 body: JSON.stringify(json),
                 headers: {
@@ -238,8 +266,8 @@ export default {
                                         <div class="input-group mb-3">
                                             <input type="text" class="form-control"
                                                 placeholder="Tell us something about yourself" v-model="aboutInput">
-                                            <button class="btn btn-outline-secondary" type="button"
-                                                id="button-addon2" @click="editAbout()">Save</button>
+                                            <button class="btn btn-outline-secondary" type="button" id="button-addon2"
+                                                @click="editAbout()">Save</button>
                                         </div>
 
                                     </div>
@@ -254,6 +282,12 @@ export default {
                     </div>
                 </div>
 
+                <div class="lds-ring" style="margin-left: 45%; margin-right: 55%;" v-if="isLoading">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
 
                 <div class="card post mb-3 shadow-sm" v-for="post in posts">
                     <div class="card-body">
@@ -286,8 +320,8 @@ export default {
                         </div>
                     </div>
                 </div>
-                
-                <div v-if="posts.length == 0" style="display: flex; align-items: center; gap: 15px;">
+
+                <div v-if="(posts.length == 0) && isLoading == false" style="display: flex; align-items: center; gap: 15px;">
                     <h3>No posts available</h3>
                     <a href="/createpost">Create one</a>
                 </div>

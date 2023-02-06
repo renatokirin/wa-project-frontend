@@ -1,4 +1,5 @@
 <script>
+import config from '../config.js';
 export default {
     data() {
         return {
@@ -11,7 +12,7 @@ export default {
         async submitSignIn() {
             let json = { "email": email.value, "password": password.value };
 
-            await fetch('http://localhost:3000/api/users/auth/signIn', {
+            await fetch(config.baseUrl + '/api/users/auth/signIn', {
                 method: 'PATCH', credentials: 'include',
                 body: JSON.stringify(json),
                 headers: {

@@ -6,6 +6,7 @@ import LikeButton from '../components/LikeButton.vue';
 import Pagination from '../components/Pagination.vue';
 import { store } from '../store.js';
 import { formatDate } from '../utils/formatDate.js';
+import config from '../config.js';
 
 export default {
     components: {
@@ -22,17 +23,20 @@ export default {
             totalPages: 10,
             topicName: "",
             formatDate,
-            username: this.$cookies.get("username")
+            username: this.$cookies.get("username"),
+            isLoading: false
         }
     },
     methods: {
         async getPosts() {
-            await fetch(`http://localhost:3000/api/posts?page=${this.currentPage}&limit=${10}&topic=${this.topicName}`, {
+            this.isLoading = true;
+            await fetch(config.baseUrl + `/api/posts?page=${this.currentPage}&limit=${10}&topic=${this.topicName}`, {
                 method: 'GET', credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json; charset=utf-8',
                 },
             }).then(res => res.json()).then(data => {
+                this.isLoading = false;
                 this.posts = data.posts;
                 this.totalPages = data.totalPages;
             });
@@ -79,6 +83,14 @@ export default {
                 </a>
             </div>
             <div class="posts-container pt-4 p-4">
+
+                <div class="lds-ring" style="margin-left: 45%; margin-right: 55%;" v-if="isLoading">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+
                 <div class="card post mb-3 shadow-sm" v-for="post in posts">
                     <div class="card-header" style="display: flex;">
                         <button type="button" class="btn btn-outline-dark p-0 px-1" @click="toUserPage(post.author.id)"
@@ -105,6 +117,11 @@ export default {
                         </div>
                     </div>
                 </div>
+
+                <div v-if="(posts.length == 0) && isLoading == false" style="display: flex; align-items: center; gap: 15px;">
+                    <h4 class="text-info">No posts available, be the first one to create a post.</h4>
+                </div>
+
                 <button class="btn btn-primary floating-button-filter shadow btn-lg" data-bs-toggle="modal"
                     data-bs-target="#filterModal">
                     <i class="fa-solid fa-filter"></i>
@@ -133,7 +150,7 @@ export default {
                 <a class="btn btn-primary floating-button shadow btn-lg" href="/createpost" v-if="username">
                     <i class="fa-solid fa-plus mt-2"></i>
                 </a>
-                <Pagination :total-pages="totalPages" :per-page="10" :current-page="currentPage"
+                <Pagination v-if="posts.length != 0" :total-pages="totalPages" :per-page="10" :current-page="currentPage"
                     @pagechanged="onPageChange"></Pagination>
             </div>
             <div class="right-content pe-4 p-2 pt-4 fixed-top"

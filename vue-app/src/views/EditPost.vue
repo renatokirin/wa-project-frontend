@@ -1,6 +1,7 @@
 <script>
 import Navbar from '../components/Navbar.vue';
 import { store } from '../store.js';
+import config from '../config.js';
 
 export default {
     components: {
@@ -20,7 +21,7 @@ export default {
         async editPost() {
             let json = { "title": this.title, "description": this.description, "markdown": this.markdown, "topicName": this.topicName };
 
-            await fetch(`http://localhost:3000/api/posts/${this.id}`, {
+            await fetch(config.baseUrl + `/api/posts/${this.id}`, {
                 method: 'PATCH', credentials: 'include',
                 body: JSON.stringify(json),
                 headers: {
@@ -40,7 +41,7 @@ export default {
         },
 
         async getPost() {
-            await fetch(`http://localhost:3000/api/posts/${this.id}`, {
+            await fetch(config.baseUrl + `/api/posts/${this.id}`, {
                 method: 'GET', credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json; charset=utf-8',
