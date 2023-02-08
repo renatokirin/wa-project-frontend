@@ -49,6 +49,7 @@ export default {
 
         searchByTopic(string) {
             this.topicName = string;
+            this.currentPage = 1;
             this.getPosts();
         },
 
@@ -79,6 +80,11 @@ export default {
                 <a href="/createpost" v-if="username">
                     <button class="btn btn-outline-primary w-100" style="font-weight: bold;">
                         <i class="fa-solid fa-pen"></i> New Post
+                    </button>
+                </a>
+                <a href="/signin" v-if="!username">
+                    <button class="btn btn-outline-primary w-100" style="font-weight: bold;">
+                        <i class="fa-solid fa-pen"></i> Sign in to post
                     </button>
                 </a>
             </div>

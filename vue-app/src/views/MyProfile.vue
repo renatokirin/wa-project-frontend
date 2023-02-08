@@ -163,6 +163,7 @@ export default {
 
         searchByTopic(string) {
             this.topicName = string;
+            this.currentPage = 1;
             this.getPosts();
         },
 
@@ -233,6 +234,7 @@ export default {
                     </div>
 
                     <div class="m-2 mt-3" style="display: flex; align-items: center;" v-if="selectorOpened">
+                        <div class="text-warning">PNG required</div>
                         <input style="font-size: 14px;" type="file" ref="file" accept="image/*" @change="" />
                         <button class="btn btn-info py-0 mt-2" style="font-size: 14px; color: white;"
                             @click="changeProfilepicture()">Change</button>

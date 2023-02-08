@@ -129,6 +129,7 @@ export default {
 
         searchByTopic(string) {
             this.topicName = string;
+            this.currentPage = 1;
             this.getPosts();
         },
 
