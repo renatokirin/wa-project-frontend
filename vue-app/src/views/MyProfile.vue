@@ -186,11 +186,11 @@ export default {
         <div class="wrapper">
             <div class="left-content p-2 pt-4 fixed-top"
                 style="margin-top: 60px; width: 18vw; margin-left: 20px; z-index: 0;">
-                <a href="/createpost">
+                <router-link to="/createpost">
                     <button class="btn btn-outline-primary w-100" style="font-weight: bold;">
                         <i class="fa-solid fa-pen"></i> New Post
                     </button>
-                </a>
+                </router-link>
             </div>
             <div class="posts-container pt-4 p-4">
                 <div class="card mb-3 shadow-sm">
@@ -325,14 +325,14 @@ export default {
 
                 <div v-if="(posts.length == 0) && isLoading == false" style="display: flex; align-items: center; gap: 15px;">
                     <h3>No posts available</h3>
-                    <a href="/createpost">Create one</a>
+                    <router-link to="/createpost">Create one</router-link>
                 </div>
                 <Pagination v-if="posts.length != 0" :total-pages="totalPages" :per-page="10"
                     :current-page="currentPage" @pagechanged="onPageChange"></Pagination>
 
-                <a class="btn btn-primary floating-button shadow btn-lg" href="/createpost">
+                <router-link class="btn btn-primary floating-button shadow btn-lg" to="/createpost">
                     <i class="fa-solid fa-plus mt-2"></i>
-                </a>
+                </router-link>
                 <button class="btn btn-primary floating-button-filter shadow btn-lg" data-bs-toggle="modal"
                     data-bs-target="#filterModal">
                     <i class="fa-solid fa-filter"></i>

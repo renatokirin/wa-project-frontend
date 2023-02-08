@@ -77,16 +77,16 @@ export default {
         <div class="wrapper">
             <div class="left-content p-2 pt-4 fixed-top"
                 style="margin-top: 60px; width: 18vw; margin-left: 20px; z-index: 0;">
-                <a href="/createpost" v-if="username">
+                <router-link to="/createpost" v-if="username">
                     <button class="btn btn-outline-primary w-100" style="font-weight: bold;">
                         <i class="fa-solid fa-pen"></i> New Post
                     </button>
-                </a>
-                <a href="/signin" v-if="!username">
+                </router-link>
+                <router-link to="/signin" v-if="!username">
                     <button class="btn btn-outline-primary w-100" style="font-weight: bold;">
                         <i class="fa-solid fa-pen"></i> Sign in to post
                     </button>
-                </a>
+                </router-link>
             </div>
             <div class="posts-container pt-4 p-4">
 
@@ -153,9 +153,9 @@ export default {
                 </div>
 
 
-                <a class="btn btn-primary floating-button shadow btn-lg" href="/createpost" v-if="username">
+                <router-link class="btn btn-primary floating-button shadow btn-lg" to="/createpost" v-if="username">
                     <i class="fa-solid fa-plus mt-2"></i>
-                </a>
+                </router-link>
                 <Pagination v-if="posts.length != 0" :total-pages="totalPages" :per-page="10" :current-page="currentPage"
                     @pagechanged="onPageChange"></Pagination>
             </div>

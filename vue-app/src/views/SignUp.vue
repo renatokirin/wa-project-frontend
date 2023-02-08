@@ -67,7 +67,7 @@ export default {
                     <button v-on:click="submitSignUp()" type="button" class="btn btn-primary mt-4">Sign Up</button>
                     <div class="text-muted mt-5">
                         Have an account?
-                        <a href="/signin">Sign In</a>
+                        <router-link to="/signin">Sign In</router-link>
                     </div>
                 </form>
             </div>
