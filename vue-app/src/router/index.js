@@ -8,52 +8,53 @@ import EditPost from '../views/EditPost.vue';
 import UserProfile from '../views/UserProfile.vue';
 import MyProfile from '../views/MyProfile.vue';
 import Bookmarks from '../views/Bookmarks.vue';
+import config from '../config';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
+      path: `${config.baseFrontendUrl}/`,
       name: 'latest',
       component: Posts
     },
     {
-      path: '/post',
+      path: `${config.baseFrontendUrl}/post`,
       name: 'post',
       component: SinglePage
     },
     {
-      path: '/signin',
+      path: `${config.baseFrontendUrl}/signin`,
       name: 'signin',
       component: SignIn
     },
     {
-      path: '/signup',
+      path: `${config.baseFrontendUrl}/signup`,
       name: 'signup',
       component: SignUp
     },
     {
-      path: '/user',
+      path: `${config.baseFrontendUrl}/user`,
       name: 'user',
       component: UserProfile
     },      
     {
-        path: '/createpost',
+        path: `${config.baseFrontendUrl}/createpost`,
         name: 'createpost',
         component: CreatePost
     },  
     {
-        path: '/my',
+        path: `${config.baseFrontendUrl}/my`,
         name: 'my',
         component: MyProfile
     },            
     {
-        path: '/editpost',
+        path: `${config.baseFrontendUrl}/editpost`,
         name: 'editpost',
         component: EditPost
     },
     {
-      path: '/bookmarks',
+      path: `${config.baseFrontendUrl}/bookmarks`,
       name: 'bookmarks',
       component: Bookmarks
     },
