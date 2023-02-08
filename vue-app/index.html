@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <style>html{visibility: hidden;opacity:0;}</style>
   <!-- https://realfavicongenerator.net/ -->
   <link rel="apple-touch-icon" sizes="180x180" href="/favicon_package/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon_package/favicon-32x32.png">
@@ -15,16 +16,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Your Blog</title>
 
-  <script>
-    /*to prevent Firefox FOUC, this must be here*/
-    let FF_FOUC_FIX;
-    setTimeout(() => console.log('activated'), 300);
-  </script>
+
 </head>
 
 <body>
   <div id="app"></div>
   <script type="module" src="/src/main.js"></script>
+  <style>html{visibility: visible;opacity:1;}</style>
 </body>
 
 </html>
