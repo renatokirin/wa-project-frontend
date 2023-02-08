@@ -3,7 +3,7 @@ import App from './App.vue';
 import router from './router';
 import VueCookies from 'vue-cookies';
 
-import './assets/bootstrap.css';
+// import './assets/bootstrap.css';
 
 const app = createApp(App);
 
