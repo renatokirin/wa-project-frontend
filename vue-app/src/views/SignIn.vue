@@ -18,7 +18,15 @@ export default {
                 headers: {
                     'Content-Type': 'application/json; charset=utf-8',
                 },
-            }).then(res => res.json()).then(data => {
+            }).then(res => {
+                const cookies = res.headers.get('Set-Cookie');
+                console.log(cookies);
+                this.$cookies.set("token", cookies.token);
+                this.$cookies.set("email", cookies.email);
+                this.$cookies.set("username", cookies.username);
+                this.$cookies.set("id", cookies.id);
+                return res.json();
+            }).then(data => {
                 console.log(data);
                 if (!data.authenticated) this.signInFailed = true;
                 else this.$router.push('/');
