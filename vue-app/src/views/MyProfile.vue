@@ -16,7 +16,7 @@ export default {
     },
     data() {
         return {
-            id: eval(this.$cookies.get("id")),
+            id: this.$cookies.get("id"),
             user: {},
             posts: [],
             currentPage: 1,
