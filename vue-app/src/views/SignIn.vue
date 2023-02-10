@@ -20,7 +20,7 @@ export default {
                 },
             }).then(res => {
                 const cookies = res.headers.get('Set-Cookie');
-                console.log(cookies);
+                console.log("cookies ", cookies);
                 this.$cookies.set("token", cookies.token);
                 this.$cookies.set("email", cookies.email);
                 this.$cookies.set("username", cookies.username);
