@@ -18,20 +18,13 @@ export default {
                 headers: {
                     'Content-Type': 'application/json; charset=utf-8',
                 },
-            }).then(res => {
-                /*
-                console.log("headers ", res.headers);
-                const cookies = res.headers.get('set-cookie');
-                console.log("cookies ", cookies);
+            }).then(res => res.json()).then(data => {
+                console.log(data.cookies);
+                const cookies = data.cookies;
                 this.$cookies.set("token", cookies.token);
                 this.$cookies.set("email", cookies.email);
                 this.$cookies.set("username", cookies.username);
                 this.$cookies.set("id", cookies.id);
-                */
-                return res.json();
-            }).then(data => {
-                console.log(data);
-                console.log('data.cookie', data.cookie);
                 if (!data.authenticated) this.signInFailed = true;
                 else this.$router.push('/');
             });
