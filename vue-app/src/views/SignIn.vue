@@ -19,6 +19,7 @@ export default {
                     'Content-Type': 'application/json; charset=utf-8',
                 },
             }).then(res => {
+                /*
                 console.log("headers ", res.headers);
                 const cookies = res.headers.get('set-cookie');
                 console.log("cookies ", cookies);
@@ -26,9 +27,11 @@ export default {
                 this.$cookies.set("email", cookies.email);
                 this.$cookies.set("username", cookies.username);
                 this.$cookies.set("id", cookies.id);
+                */
                 return res.json();
             }).then(data => {
                 console.log(data);
+                console.log('data.cookie', data.cookie);
                 if (!data.authenticated) this.signInFailed = true;
                 else this.$router.push('/');
             });
