@@ -19,7 +19,8 @@ export default {
                     'Content-Type': 'application/json; charset=utf-8',
                 },
             }).then(res => {
-                const cookies = res.headers.get('Set-Cookie');
+                console.log("headers ", res.headers);
+                const cookies = res.headers.get('set-cookie');
                 console.log("cookies ", cookies);
                 this.$cookies.set("token", cookies.token);
                 this.$cookies.set("email", cookies.email);
