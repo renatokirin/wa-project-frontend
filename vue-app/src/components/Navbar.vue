@@ -15,7 +15,13 @@ export default {
                 headers: {
                     'Content-Type': 'application/json; charset=utf-8',
                 },
-            }).then(() => window.location.reload());
+            }).then(() => {
+                this.$cookies.delete("token");
+                this.$cookies.delete("email");
+                this.$cookies.delete("username");
+                this.$cookies.delete("id");
+                window.location.reload();
+            });
         },
 
         removeMargin() {
