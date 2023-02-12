@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHashHistory } from 'vue-router';
 import Posts from '../views/Posts.vue';
 import SignIn from '../views/SignIn.vue';
 import SignUp from '../views/SignUp.vue';
@@ -10,8 +10,12 @@ import MyProfile from '../views/MyProfile.vue';
 import Bookmarks from '../views/Bookmarks.vue';
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes: [
+    {
+      path: '*',
+      component: Posts
+    },
     {
       path: '/',
       name: 'latest',
