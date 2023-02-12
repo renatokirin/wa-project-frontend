@@ -16,10 +16,10 @@ export default {
                     'Content-Type': 'application/json; charset=utf-8',
                 },
             }).then(() => {
-                this.$cookie.delete("token");
-                this.$cookie.delete("email");
-                this.$cookie.delete("username");
-                this.$cookie.delete("id");
+                this.$cookies.set("token", '');
+                this.$cookies.set("email", '');
+                this.$cookies.set("username", '');
+                this.$cookies.set("id", '');
                 window.location.reload();
             });
         },
