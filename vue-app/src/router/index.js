@@ -10,7 +10,7 @@ import MyProfile from '../views/MyProfile.vue';
 import Bookmarks from '../views/Bookmarks.vue';
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(),
   routes: [
     {
       path: '/',

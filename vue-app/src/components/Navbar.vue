@@ -35,7 +35,7 @@ export default {
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav w-100">
                 <li class="navbar-item"  v-if="username">
-                    <router-link to="/bookmarks">Bookmarks</router-link>
+                    <router-link to="/bookmarks" style="text-decoration: none; text-align: center;">Bookmarks</router-link>
                 </li>
                 <div class="navbar-item" :class="margin" v-if="username">
 
