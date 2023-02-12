@@ -13,10 +13,6 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes: [
     {
-      path: '*',
-      component: Posts
-    },
-    {
       path: '/',
       name: 'latest',
       component: Posts
