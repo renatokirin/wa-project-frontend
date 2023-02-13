@@ -21,8 +21,8 @@ export default {
         },
         toUserPage(id) {
             store.setSelectedUserId(id);
-            this.$router.push('/user');
             window.location.reload();
+            this.$router.push('/user');
         },
     }
 };
