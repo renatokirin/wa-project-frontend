@@ -21,11 +21,15 @@ export default {
         },
         toUserPage(id) {
             store.setSelectedUserId(id);
-            window.location.reload();
+            this.$router.push('/user');
             if (this.$router.currentRoute.path == '/my') {
+                console.log('currentRoute = /my');
                 setTimeout(() => {
-                    this.$router.push('/user');
+                    window.location.reload();
                 }, 250);
+            } else {
+                console.log('currentRoute = !/my');
+                window.location.reload();
             }
         },
     }
