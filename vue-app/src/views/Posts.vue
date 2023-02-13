@@ -30,6 +30,7 @@ export default {
     methods: {
         async getPosts() {
             this.isLoading = true;
+            this.posts = [];
             await fetch(config.baseUrl + `/api/posts?page=${this.currentPage}&limit=${10}&topic=${this.topicName}`, {
                 method: 'GET', credentials: 'include',
                 headers: {
